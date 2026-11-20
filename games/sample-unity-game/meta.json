@@ -1,0 +1,21 @@
+{
+  "game": "Sample Unity Game",
+  "slug": "sample-unity-game",
+  "engine": "Unity",
+  "engineVersion": "2021.3",
+  "scriptingBackend": "Mono",
+  "exe": "Sample Unity Game.exe",
+  "author": "EncidXVII",
+  "version": "1.0.0",
+  "testedPortXRVersion": "0.2.0",
+  "status": "works",
+  "display": "Full VR",
+  "headsetsTested": ["Quest 3 (Virtual Desktop)"],
+  "hasOnlineMultiplayer": false,
+  "hasAntiCheat": false,
+  "containsCode": true,
+  "files": [{ "path": "script.lua", "kind": "script", "about": "Follows the gameplay camera and hides the vignette quad" }],
+  "notes": "TODO: sample entry. It shows the format; the game does not exist.",
+  "lastUpdated": "2026-11-20",
+  "sample": true
+}

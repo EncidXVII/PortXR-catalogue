@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://everyvr.net/schemas/portxr-catalogue-entry.json",
+  "title": "PortXR catalogue entry",
+  "description": "games/<slug>/meta.json: what a game needs to play well in VR with PortXR, and who tested it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "game",
+    "slug",
+    "engine",
+    "engineVersion",
+    "exe",
+    "author",
+    "version",
+    "testedPortXRVersion",
+    "status",
+    "headsetsTested",
+    "hasOnlineMultiplayer",
+    "hasAntiCheat",
+    "containsCode",
+    "files",
+    "notes",
+    "lastUpdated"
+  ],
+  "properties": {
+    "game": { "type": "string", "minLength": 1, "maxLength": 100, "description": "The game's name as its store page writes it." },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 60,
+      "description": "The folder name and the page address. Never changes once published."
+    },
+    "steamAppId": { "type": "integer", "minimum": 1 },
+    "engine": { "enum": ["Unity", "Unreal Engine", "Godot"] },
+    "engineVersion": { "type": "string", "pattern": "^[0-9][0-9A-Za-z.]*$", "description": "As PortXR shows it on the game's page: 2021.3, 5.4, 4.3." },
+    "scriptingBackend": { "enum": ["Mono", "IL2CPP"], "description": "Unity games only." },
+    "exe": {
+      "type": "string",
+      "pattern": "^[^\\\\/:*?\"<>|]+\\.exe$",
+      "description": "The game's exe, which names its scripts folder. Unreal games: the <Game>-Win64-Shipping.exe."
+    },
+    "author": { "type": "string", "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$", "description": "GitHub name of whoever wrote the entry." },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$", "description": "Version of this entry. Raise it with every change to its files." },
+    "testedPortXRVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "status": { "enum": ["works", "partial", "broken"], "description": "works: playable start to end as far as tested. partial: playable with the problems in notes. broken: not playable yet." },
+    "display": { "enum": ["Full VR", "3D screen", "VR screen"], "description": "The display mode this entry was tested in." },
+    "headsetsTested": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 2, "maxLength": 60 }
+    },
+    "hasOnlineMultiplayer": { "type": "boolean", "description": "The game has an online mode. The entry is still for single-player only." },
+    "hasAntiCheat": { "const": false, "description": "Games with anti-cheat are not accepted." },
+    "containsCode": { "type": "boolean", "description": "True when any file is a Lua script." },
+    "files": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "kind"],
+        "properties": {
+          "path": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*\\.(lua|cfg)$" },
+          "kind": { "enum": ["script", "settings"] },
+          "about": { "type": "string", "maxLength": 200 }
+        }
+      }
+    },
+    "notes": { "type": "string", "maxLength": 1200, "description": "What works, what does not, what the files fix. Plain text." },
+    "lastUpdated": { "type": "string", "format": "date" },
+    "sample": { "const": true, "description": "A made-up entry that shows the format. Removed before the catalogue opens." }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "engine": { "const": "Unity" } } },
+      "then": { "required": ["scriptingBackend"] },
+      "else": { "properties": { "scriptingBackend": false } }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+# Checks every entry on each pull request and on main.
+#
+# The validator and its packages come from the base branch (trusted/), and the pull request's files are checked
+# out beside it (entry/) and only read as data. A pull request can therefore change neither the rules it is
+# checked by nor run any code of its own here. `pull_request_target` is not used, and the token can only read.
+name: Validate entries
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: The rules, from the base branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha || github.sha }}
+          path: trusted
+          persist-credentials: false
+      - name: The entries to check
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: entry
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: trusted/package-lock.json
+      - run: npm ci --ignore-scripts
+        working-directory: trusted
+      - run: npm audit --audit-level=low
+        working-directory: trusted
+      - run: node trusted/tools/validate.mjs --root entry

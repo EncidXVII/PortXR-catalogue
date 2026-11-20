@@ -1,0 +1,23 @@
+{
+  "game": "Sample Unreal Game",
+  "slug": "sample-unreal-game",
+  "engine": "Unreal Engine",
+  "engineVersion": "5.4",
+  "exe": "SampleGame-Win64-Shipping.exe",
+  "author": "EncidXVII",
+  "version": "1.0.0",
+  "testedPortXRVersion": "0.2.0",
+  "status": "partial",
+  "display": "Full VR",
+  "headsetsTested": ["Valve Index (SteamVR)"],
+  "hasOnlineMultiplayer": true,
+  "hasAntiCheat": false,
+  "containsCode": true,
+  "files": [
+    { "path": "script.lua", "kind": "script", "about": "Hides the first-person arms and slows walking" },
+    { "path": "settings.cfg", "kind": "settings", "about": "World scale and snap turning that suit the game" }
+  ],
+  "notes": "TODO: sample entry. It shows the format; the game does not exist. Cutscenes play on the VR screen.",
+  "lastUpdated": "2026-11-20",
+  "sample": true
+}

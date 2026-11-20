@@ -1,0 +1,19 @@
+{
+  "game": "Sample Godot Game",
+  "slug": "sample-godot-game",
+  "engine": "Godot",
+  "engineVersion": "4.3",
+  "exe": "SampleGodotGame.exe",
+  "author": "EncidXVII",
+  "version": "1.0.0",
+  "testedPortXRVersion": "0.2.0",
+  "status": "broken",
+  "headsetsTested": ["Quest 3 (Quest Link)"],
+  "hasOnlineMultiplayer": false,
+  "hasAntiCheat": false,
+  "containsCode": false,
+  "files": [],
+  "notes": "TODO: sample entry. It shows the format; the game does not exist. The game draws its world in a 2D viewport, so there is no stereo view yet.",
+  "lastUpdated": "2026-11-20",
+  "sample": true
+}

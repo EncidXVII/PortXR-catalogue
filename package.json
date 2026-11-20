@@ -1,0 +1,14 @@
+{
+  "name": "portxr-catalogue",
+  "private": true,
+  "type": "module",
+  "description": "Game scripts and settings for PortXR, one folder per game",
+  "scripts": {
+    "test": "node tools/validate.mjs",
+    "sums": "node tools/validate.mjs --sums"
+  },
+  "devDependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1"
+  }
+}
