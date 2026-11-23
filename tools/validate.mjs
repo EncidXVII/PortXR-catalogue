@@ -25,20 +25,13 @@ const ajv = new Ajv({ allErrors: true });
 addFormats(ajv);
 const valid = ajv.compile(schema);
 
-// What may sit in an entry's folder, and how big it may be. Anything else is an error: no binaries, no archives.
-const LIMITS = { '.lua': 64 * 1024, '.cfg': 16 * 1024, '.json': 16 * 1024, '.md': 16 * 1024, '.jpg': 300 * 1024, '.png': 300 * 1024, '.webp': 300 * 1024 };
-const TEXT = new Set(['.lua', '.cfg', '.json', '.md']);
+// What may sit in an entry's folder, and how big it may be. Anything else is an error: no binaries, no archives, no
+// pictures (the site shows Steam's picture of the game, from its steamAppId).
+const LIMITS = { '.lua': 64 * 1024, '.cfg': 16 * 1024, '.json': 16 * 1024, '.md': 16 * 1024 };
 const NAME = /^[a-z0-9][a-z0-9._-]*$/;
-const EXTRA = /^(meta\.json|README\.md|cover\.(jpg|png|webp))$/;
+const EXTRA = /^(meta\.json|README\.md)$/;
 const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const MAX_LINE = 300; // longer lines are minified or packed code
-// A picture has to start like the kind of picture its name says it is.
-const MAGIC = {
-  '.jpg': (b) => b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff,
-  '.png': (b) => b.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])),
-  '.webp': (b) => b.subarray(0, 4).toString('latin1') === 'RIFF' && b.subarray(8, 12).toString('latin1') === 'WEBP',
-};
-
 // Scripts run in PortXR's sandbox (no files, no programs, no network). These still get a second look.
 const FLAGS = [
   [/\b(load|loadstring|dofile|loadfile|require)\s*[("']/, 'loads code at run time'],
@@ -89,6 +82,11 @@ for (const slug of entries) {
   const listed = new Set((Array.isArray(meta.files) ? meta.files : []).map((f) => f?.path));
   for (const path of listed) if (!present.includes(path)) fail(`${path} is listed in meta.json but missing`);
   if (meta.containsCode !== [...listed].some((path) => String(path).endsWith('.lua'))) fail('containsCode must be true exactly when a .lua file is listed');
+  // A rating says what someone saw: each rated mode needs a report in that mode, and an issue tied to a mode is
+  // about a rated one.
+  const reported = new Set((Array.isArray(meta.reports) ? meta.reports : []).map((r) => r?.mode));
+  for (const mode of Object.keys(meta.ratings ?? {})) if (!reported.has(mode)) fail(`ratings: "${mode}" has no report in that mode`);
+  for (const issue of Array.isArray(meta.issues) ? meta.issues : []) if (issue?.mode && !(issue.mode in (meta.ratings ?? {}))) fail(`issues: "${issue.mode}" is not a rated mode`);
 
   for (const name of present) {
     const file = join(dir, name);
@@ -113,19 +111,16 @@ for (const slug of entries) {
       continue;
     }
     const bytes = readFileSync(file);
-    if (TEXT.has(ext)) {
-      if (bytes.includes(0)) fail(`${name}: not a text file`);
-      const text = bytes.toString('utf8');
-      if (text.includes('�')) fail(`${name}: not valid UTF-8`);
-      // Characters that hide or reorder text: a script must read the way it runs.
-      if (/[​-‏‪-‮⁦-⁩﻿]/.test(text)) fail(`${name}: contains invisible or text-reordering characters`);
-      text.split(/\r?\n/).forEach((line, i) => {
-        if (line.length > MAX_LINE) fail(`${name}:${i + 1}: a line of ${line.length} characters; minified or packed files are not accepted`);
-        if (ext === '.lua') for (const [pattern, why] of FLAGS) if (pattern.test(line)) flags.push(`games/${slug}/${name}:${i + 1}: ${why}`);
-      });
-    } else if (!MAGIC[ext](bytes)) {
-      fail(`${name}: not a ${ext.slice(1)} picture`);
-    }
+    // Every file is text: none may hide bytes or code from the reader.
+    if (bytes.includes(0)) fail(`${name}: not a text file`);
+    const text = bytes.toString('utf8');
+    if (text.includes('�')) fail(`${name}: not valid UTF-8`);
+    // Characters that hide or reorder text: a script must read the way it runs.
+    if (/[​-‏‪-‮⁦-⁩﻿]/.test(text)) fail(`${name}: contains invisible or text-reordering characters`);
+    text.split(/\r?\n/).forEach((line, i) => {
+      if (line.length > MAX_LINE) fail(`${name}:${i + 1}: a line of ${line.length} characters; minified or packed files are not accepted`);
+      if (ext === '.lua') for (const [pattern, why] of FLAGS) if (pattern.test(line)) flags.push(`games/${slug}/${name}:${i + 1}: ${why}`);
+    });
     if (listed.has(name)) sums.push(`${createHash('sha256').update(bytes).digest('hex')}  games/${slug}/${name}`);
   }
 }

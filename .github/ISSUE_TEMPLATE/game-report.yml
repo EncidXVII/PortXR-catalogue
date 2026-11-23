@@ -1,0 +1,111 @@
+name: How a game played
+description: Played a game with PortXR? Say how it went, even if it just worked. No files or code needed.
+title: "[Report] "
+labels: ["report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One report per game and display mode. "It just works" is the most useful report there is.
+        Single-player games only, and no games with anti-cheat.
+  - type: input
+    id: game
+    attributes:
+      label: Game
+      description: The name as its store page writes it.
+    validations:
+      required: true
+  - type: input
+    id: steam
+    attributes:
+      label: Steam store link
+      description: Leave empty if the game is not on Steam.
+      placeholder: https://store.steampowered.com/app/...
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Display mode
+      options:
+        - Full VR
+        - 3D screen
+        - VR screen
+    validations:
+      required: true
+  - type: dropdown
+    id: rating
+    attributes:
+      label: How it played
+      options:
+        - "Perfect: nothing to fix"
+        - "Good: small issues you can ignore"
+        - "Playable: noticeable issues, still finishable"
+        - "Broken: not playable"
+    validations:
+      required: true
+  - type: dropdown
+    id: needed
+    attributes:
+      label: What it needed
+      options:
+        - Nothing, it played as it is
+        - Changed PortXR settings
+        - A script
+    validations:
+      required: true
+  - type: checkboxes
+    id: issues
+    attributes:
+      label: What went wrong
+      description: Tick any that apply, and say more below.
+      options:
+        - label: Menus or UI
+        - label: HUD
+        - label: Cutscenes
+        - label: Controls
+        - label: World scale
+        - label: Camera
+        - label: Performance
+        - label: Crashes
+        - label: Audio
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What worked, what did not, and any settings you changed. Screenshots welcome.
+  - type: input
+    id: headset
+    attributes:
+      label: Headset and how it connects
+      placeholder: Quest 3 (Virtual Desktop)
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: System
+      options:
+        - Windows
+        - Linux (Proton)
+    validations:
+      required: true
+  - type: input
+    id: portxr
+    attributes:
+      label: PortXR version
+      description: In PortXR's Settings, under About.
+      placeholder: "0.6.0"
+    validations:
+      required: true
+  - type: input
+    id: engine
+    attributes:
+      label: Engine
+      description: As PortXR shows it on the game's page.
+      placeholder: Unity 2021.3 (Mono)
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Rules
+      options:
+        - label: I played single-player, and the game has no anti-cheat.
+          required: true

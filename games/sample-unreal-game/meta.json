@@ -6,18 +6,48 @@
   "exe": "SampleGame-Win64-Shipping.exe",
   "author": "EncidXVII",
   "version": "1.0.0",
-  "testedPortXRVersion": "0.2.0",
-  "status": "partial",
-  "display": "Full VR",
-  "headsetsTested": ["Valve Index (SteamVR)"],
+  "ratings": {
+    "Full VR": "playable"
+  },
+  "issues": [
+    {
+      "tag": "cutscenes",
+      "note": "Cutscenes play on the VR screen, then the world comes back."
+    },
+    {
+      "tag": "scale",
+      "note": "The world feels large until the settings file sets the scale.",
+      "fixed": true
+    }
+  ],
+  "reports": [
+    {
+      "by": "EncidXVII",
+      "date": "2026-11-23",
+      "portxr": "0.5.0",
+      "headset": "Valve Index (SteamVR)",
+      "os": "Windows",
+      "mode": "Full VR",
+      "rating": "playable",
+      "withFiles": true
+    }
+  ],
   "hasOnlineMultiplayer": true,
   "hasAntiCheat": false,
   "containsCode": true,
   "files": [
-    { "path": "script.lua", "kind": "script", "about": "Hides the first-person arms and slows walking" },
-    { "path": "settings.cfg", "kind": "settings", "about": "World scale and snap turning that suit the game" }
+    {
+      "path": "script.lua",
+      "kind": "script",
+      "about": "Hides the first-person arms and slows walking"
+    },
+    {
+      "path": "settings.cfg",
+      "kind": "settings",
+      "about": "World scale and snap turning that suit the game"
+    }
   ],
-  "notes": "TODO: sample entry. It shows the format; the game does not exist. Cutscenes play on the VR screen.",
-  "lastUpdated": "2026-11-20",
+  "notes": "TODO: sample entry. It shows the format; the game does not exist.",
+  "lastUpdated": "2026-11-23",
   "sample": true
 }

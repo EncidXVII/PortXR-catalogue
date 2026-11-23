@@ -6,14 +6,43 @@
   "exe": "SampleGodotGame.exe",
   "author": "EncidXVII",
   "version": "1.0.0",
-  "testedPortXRVersion": "0.2.0",
-  "status": "broken",
-  "headsetsTested": ["Quest 3 (Quest Link)"],
+  "ratings": {
+    "VR screen": "perfect",
+    "Full VR": "broken"
+  },
+  "issues": [
+    {
+      "tag": "camera",
+      "note": "The game draws its world in a 2D viewport, so there is no stereo view yet.",
+      "mode": "Full VR"
+    }
+  ],
+  "reports": [
+    {
+      "by": "EncidXVII",
+      "date": "2026-11-23",
+      "portxr": "0.5.0",
+      "headset": "Quest 3 (Quest Link)",
+      "os": "Windows",
+      "mode": "VR screen",
+      "rating": "perfect",
+      "note": "Plays as it is on the VR screen, controllers as a gamepad."
+    },
+    {
+      "by": "EncidXVII",
+      "date": "2026-11-23",
+      "portxr": "0.5.0",
+      "headset": "Quest 3 (Quest Link)",
+      "os": "Windows",
+      "mode": "Full VR",
+      "rating": "broken"
+    }
+  ],
   "hasOnlineMultiplayer": false,
   "hasAntiCheat": false,
   "containsCode": false,
   "files": [],
-  "notes": "TODO: sample entry. It shows the format; the game does not exist. The game draws its world in a 2D viewport, so there is no stereo view yet.",
-  "lastUpdated": "2026-11-20",
+  "notes": "TODO: sample entry. It shows the format; the game does not exist. Plays as it is on the VR screen, with nothing to install. Full VR does not work yet.",
+  "lastUpdated": "2026-11-23",
   "sample": true
 }

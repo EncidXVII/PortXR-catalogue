@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Add a script or settings file
+    url: https://github.com/EncidXVII/PortXR-catalogue/blob/main/CONTRIBUTING.md
+    about: Files go in a pull request. The guide shows how.
+  - name: Questions and help
+    url: https://discord.gg/WkzGQwu2kz
+    about: Ask other players on the EveryVR Discord.
+  - name: A problem with PortXR itself
+    url: https://github.com/EncidXVII/PortXR/issues/new/choose
+    about: Bugs in the app or the VR mod belong in PortXR's repository.

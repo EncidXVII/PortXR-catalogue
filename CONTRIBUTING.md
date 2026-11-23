@@ -2,21 +2,28 @@
 
 Thanks for sharing what made a game work. An entry helps every player who tries that game after you.
 
+**Only want to say how a game played?** Use the
+[report form](https://github.com/EncidXVII/PortXR-catalogue/issues/new?template=game-report.yml) instead: no files,
+no code, and the maintainer adds it to the catalogue. This guide is for scripts and settings.
+
 ## What is accepted
 
 - **Offline single-player games.** If the game also has an online mode, set `hasOnlineMultiplayer` to `true`: its
   page then warns players to use the entry in single-player only.
 - **No anti-cheat.** Games with EasyAntiCheat, BattlEye or any other kernel or online anti-cheat are not accepted.
   PortXR refuses them too.
-- **Reports without files are welcome.** "Works as it is" and "does not work yet" are useful entries: set the
-  status, leave `files` empty and say what you saw in `notes`.
+- **Entries without files are welcome.** "Plays as it is" and "does not work yet" are useful: rate the mode, leave
+  `files` empty and say what you saw in `notes`.
 
 ## Steps
 
 1. Copy a `games/sample-*` folder to `games/<game-slug>` (lower case, words joined by hyphens:
    `hollow-knight`). The slug is the page's address and never changes.
 2. Fill in `meta.json`. `schema/meta.schema.json` describes every field. The engine, its version and the exe name
-   are on the game's page in PortXR.
+   are on the game's page in PortXR; `steamAppId` is the number in the game's Steam store address.
+   - `ratings`: one per display mode you played (`"Full VR": "good"`). Each needs a report in that mode.
+   - `issues`: what goes wrong, tagged, with a short note. Mark one `"fixed": true` when your files fix it.
+   - `reports`: you, the date, PortXR version, headset, Windows or Linux, mode and rating. Newest first.
 3. Add your files:
    - `settings.cfg`: only the settings that differ from PortXR's defaults, in the form the game's settings file
      uses (`[View]`, `WorldScale = 1.2`).
@@ -26,17 +33,24 @@ Thanks for sharing what made a game work. An entry helps every player who tries 
 5. Open a pull request and fill in its checklist.
 
 Changing an entry later: edit the files, raise `version`, set `lastUpdated`, and say in the pull request what
-changed and why.
+changed and why. PortXR offers players the new files as an update when `version` goes up.
+
+## Turning a report into an entry
+
+A report from the form becomes a line in `reports` (with `issue` set to its number), and its rating and ticked
+issues update `ratings` and `issues`. A new game gets a new folder with `files` left empty. Close the issue with a
+link to the commit.
 
 ## What CI rejects
 
 - A `meta.json` that does not match the schema, or a slug that is not the folder name.
-- Files that are not `.lua`, `.cfg`, `.md`, `.json` or a cover picture; folders inside an entry; anything over the
-  size limit (64 KB for a script, 300 KB for a picture).
+- Files that are not `.lua`, `.cfg`, `.md` or `.json` (no pictures: the site uses Steam's picture of the game);
+  folders inside an entry; anything over the size limit (64 KB for a script).
 - Binaries, archives, minified or packed code (a line over 300 characters).
 - A file in the folder that `meta.json` does not list.
 - Symbolic links, hidden files, and file names with anything but lower-case letters, digits, dots and hyphens.
-- A picture that is not really a picture, and text with invisible or text-reordering characters.
+- Text with invisible or text-reordering characters.
+- A rating for a mode nobody reported, or an issue tied to a mode that is not rated.
 
 The check that runs on your pull request comes from the main branch, not from your change, and your files are only
 read, never run.
@@ -56,8 +70,6 @@ TODO: confirm. Proposed: everything in this repository is shared under the
 [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html), the same licence as PortXR, with the author named in
 `meta.json` and in each script's header. By opening a pull request you confirm that you wrote the files or have the
 right to share them, as in the [Developer Certificate of Origin 1.1](https://developercertificate.org/).
-
-Cover pictures must be your own screenshot or one you have permission to share. Do not upload store artwork.
 
 ## Reporting a bad entry
 
