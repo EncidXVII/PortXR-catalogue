@@ -5,7 +5,8 @@ Files in this catalogue run inside people's games, so a bad entry is treated as 
 ## Reporting
 
 - **An entry that looks malicious or harmful:** use GitHub's private vulnerability reporting on this repository
-  (Security tab, "Report a vulnerability"). Name the game folder and say what the file does.
+  (Security tab, "Report a vulnerability"), or email [mykola@everyvr.net](mailto:mykola@everyvr.net). Name the game folder and say what the
+  file does.
 - **A way around the checks** (CI, the schema, PortXR's script sandbox): report it the same way. Do not open a
   public issue for either.
 - An entry that simply does not work is not a security problem: open a normal issue.
