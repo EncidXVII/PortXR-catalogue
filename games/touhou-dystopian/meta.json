@@ -1,0 +1,29 @@
+{
+  "game": "东方异域见闻 ~ Touhou Dystopian",
+  "slug": "touhou-dystopian",
+  "steamAppId": 3265060,
+  "engine": "Unity",
+  "engineVersion": "2022.3.62f2",
+  "scriptingBackend": "Mono",
+  "exe": "Touhou Dystopian.exe",
+  "author": "EncidXVII",
+  "version": "1.0.0",
+  "issues": [],
+  "reports": [
+    {
+      "by": "EncidXVII",
+      "date": "2026-11-23",
+      "portxr": "0.5.0",
+      "headset": "Quest Pro, Quest 2 and Quest 3 (Virtual Desktop)",
+      "os": "Windows",
+      "mode": "Full VR",
+      "rating": "perfect"
+    }
+  ],
+  "hasOnlineMultiplayer": false,
+  "hasAntiCheat": false,
+  "containsCode": false,
+  "files": [],
+  "notes": "",
+  "lastUpdated": "2026-11-23"
+}

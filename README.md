@@ -5,9 +5,6 @@ display mode, what goes wrong, who played it on which headset, and the script or
 any. PortXR shows the same on each game's page and installs the files with one click. The site shows every entry at
 [everyvr.net/portxr/catalogue](https://everyvr.net/portxr/catalogue), one page per game. Questions about an entry, or a game you want covered: [the EveryVR Discord](https://discord.gg/WkzGQwu2kz).
 
-> **Status: not open yet.** The three `sample-*` entries show the format and are removed when the first real entry
-> is merged.
-
 ## Two ways to help
 
 - **Played a game? [Say how it went](https://github.com/EncidXVII/PortXR-catalogue/issues/new?template=game-report.yml).**

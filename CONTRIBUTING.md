@@ -17,8 +17,8 @@ no code, and the maintainer adds it to the catalogue. This guide is for scripts 
 
 ## Steps
 
-1. Copy a `games/sample-*` folder to `games/<game-slug>` (lower case, words joined by hyphens:
-   `hollow-knight`). The slug is the page's address and never changes.
+1. Copy any folder in `games/` to `games/<game-slug>` (lower case, words joined by hyphens: `hollow-knight`). The
+   slug is the page's address and never changes.
 2. Fill in `meta.json`. `schema/meta.schema.json` describes every field. The engine, its version and the exe name
    are on the game's page in PortXR; `steamAppId` is the number in the game's Steam store address.
    - `reports`: you, the date, PortXR version, headset, Windows or Linux, display mode and rating, newest first.

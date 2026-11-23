@@ -1,0 +1,28 @@
+{
+  "game": "BPM: BULLETS PER MINUTE",
+  "slug": "bpm-bullets-per-minute",
+  "steamAppId": 1286350,
+  "engine": "Unreal Engine",
+  "engineVersion": "4.26",
+  "exe": "BPMGame-Win64-Shipping.exe",
+  "author": "EncidXVII",
+  "version": "1.0.0",
+  "issues": [],
+  "reports": [
+    {
+      "by": "EncidXVII",
+      "date": "2026-11-23",
+      "portxr": "0.5.0",
+      "headset": "Quest Pro, Quest 2 and Quest 3 (Virtual Desktop)",
+      "os": "Windows",
+      "mode": "Full VR",
+      "rating": "perfect"
+    }
+  ],
+  "hasOnlineMultiplayer": false,
+  "hasAntiCheat": false,
+  "containsCode": false,
+  "files": [],
+  "notes": "",
+  "lastUpdated": "2026-11-23"
+}

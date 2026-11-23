@@ -1,0 +1,29 @@
+{
+  "game": "Risk of Rain 2",
+  "slug": "risk-of-rain-2",
+  "steamAppId": 632360,
+  "engine": "Unity",
+  "engineVersion": "2021.3.45f2",
+  "scriptingBackend": "Mono",
+  "exe": "Risk of Rain 2.exe",
+  "author": "EncidXVII",
+  "version": "1.0.0",
+  "issues": [],
+  "reports": [
+    {
+      "by": "EncidXVII",
+      "date": "2026-11-23",
+      "portxr": "0.5.0",
+      "headset": "Quest Pro, Quest 2 and Quest 3 (Virtual Desktop)",
+      "os": "Windows",
+      "mode": "Full VR",
+      "rating": "perfect"
+    }
+  ],
+  "hasOnlineMultiplayer": true,
+  "hasAntiCheat": false,
+  "containsCode": false,
+  "files": [],
+  "notes": "",
+  "lastUpdated": "2026-11-23"
+}

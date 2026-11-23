@@ -1,0 +1,29 @@
+{
+  "game": "Untitled Goose Game",
+  "slug": "untitled-goose-game",
+  "steamAppId": 837470,
+  "engine": "Unity",
+  "engineVersion": "2018.4.1f1",
+  "scriptingBackend": "Mono",
+  "exe": "Untitled.exe",
+  "author": "EncidXVII",
+  "version": "1.0.0",
+  "issues": [],
+  "reports": [
+    {
+      "by": "EncidXVII",
+      "date": "2026-11-23",
+      "portxr": "0.5.0",
+      "headset": "Quest Pro, Quest 2 and Quest 3 (Virtual Desktop)",
+      "os": "Windows",
+      "mode": "Full VR",
+      "rating": "broken"
+    }
+  ],
+  "hasOnlineMultiplayer": false,
+  "hasAntiCheat": false,
+  "containsCode": false,
+  "files": [],
+  "notes": "",
+  "lastUpdated": "2026-11-23"
+}
