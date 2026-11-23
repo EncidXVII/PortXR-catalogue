@@ -1,6 +1,6 @@
 **Game:**
 **What the files fix:**
-**Ratings (mode: rating):**
+**How it played (mode: rating):**
 **Tested on (headset, runtime, Windows or Linux, PortXR version):**
 
 - [ ] The game is offline single-player, or the entry is for its single-player mode only. It has no anti-cheat.

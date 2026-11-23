@@ -77,16 +77,15 @@ for (const slug of entries) {
     fail(`meta.json: ${e.message}`);
     continue;
   }
-  if (!valid(meta)) for (const e of valid.errors) fail(`meta.json${e.instancePath} ${e.message}`);
+  if ('ratings' in meta) fail('meta.json: ratings are computed from the reports; remove the "ratings" field');
+  else if (!valid(meta)) for (const e of valid.errors) fail(`meta.json${e.instancePath} ${e.message}`);
   if (meta.slug !== slug) fail(`slug "${meta.slug}" is not the folder name`);
   const listed = new Set((Array.isArray(meta.files) ? meta.files : []).map((f) => f?.path));
   for (const path of listed) if (!present.includes(path)) fail(`${path} is listed in meta.json but missing`);
   if (meta.containsCode !== [...listed].some((path) => String(path).endsWith('.lua'))) fail('containsCode must be true exactly when a .lua file is listed');
-  // A rating says what someone saw: each rated mode needs a report in that mode, and an issue tied to a mode is
-  // about a rated one.
+  // Ratings are computed from the reports, so an issue tied to a mode has to be about a mode someone reported.
   const reported = new Set((Array.isArray(meta.reports) ? meta.reports : []).map((r) => r?.mode));
-  for (const mode of Object.keys(meta.ratings ?? {})) if (!reported.has(mode)) fail(`ratings: "${mode}" has no report in that mode`);
-  for (const issue of Array.isArray(meta.issues) ? meta.issues : []) if (issue?.mode && !(issue.mode in (meta.ratings ?? {}))) fail(`issues: "${issue.mode}" is not a rated mode`);
+  for (const issue of Array.isArray(meta.issues) ? meta.issues : []) if (issue?.mode && !reported.has(issue.mode)) fail(`issues: nobody reported "${issue.mode}"`);
 
   for (const name of present) {
     const file = join(dir, name);

@@ -6,9 +6,6 @@
   "exe": "SampleGame-Win64-Shipping.exe",
   "author": "EncidXVII",
   "version": "1.0.0",
-  "ratings": {
-    "Full VR": "playable"
-  },
   "issues": [
     {
       "tag": "cutscenes",

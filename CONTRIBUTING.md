@@ -21,9 +21,10 @@ no code, and the maintainer adds it to the catalogue. This guide is for scripts 
    `hollow-knight`). The slug is the page's address and never changes.
 2. Fill in `meta.json`. `schema/meta.schema.json` describes every field. The engine, its version and the exe name
    are on the game's page in PortXR; `steamAppId` is the number in the game's Steam store address.
-   - `ratings`: one per display mode you played (`"Full VR": "good"`). Each needs a report in that mode.
+   - `reports`: you, the date, PortXR version, headset, Windows or Linux, display mode and rating, newest first.
+     Set `"withFiles": true` when you played with the entry's files. The ratings on the site and in PortXR are
+     computed from these reports; there is no rating to set by hand.
    - `issues`: what goes wrong, tagged, with a short note. Mark one `"fixed": true` when your files fix it.
-   - `reports`: you, the date, PortXR version, headset, Windows or Linux, mode and rating. Newest first.
 3. Add your files:
    - `settings.cfg`: only the settings that differ from PortXR's defaults, in the form the game's settings file
      uses (`[View]`, `WorldScale = 1.2`).
@@ -37,8 +38,9 @@ changed and why. PortXR offers players the new files as an update when `version`
 
 ## Turning a report into an entry
 
-A report from the form becomes a line in `reports` (with `issue` set to its number), and its rating and ticked
-issues update `ratings` and `issues`. A new game gets a new folder with `files` left empty. Close the issue with a
+A report from the form becomes a line in `reports` (with `issue` set to its number, and `withFiles` if the
+player used the entry's files), and its ticked issues update `issues`. The game's ratings follow from the
+reports. A new game gets a new folder with `files` left empty. Close the issue with a
 link to the commit.
 
 ## What CI rejects
@@ -50,7 +52,7 @@ link to the commit.
 - A file in the folder that `meta.json` does not list.
 - Symbolic links, hidden files, and file names with anything but lower-case letters, digits, dots and hyphens.
 - Text with invisible or text-reordering characters.
-- A rating for a mode nobody reported, or an issue tied to a mode that is not rated.
+- An issue tied to a display mode nobody reported.
 
 The check that runs on your pull request comes from the main branch, not from your change, and your files are only
 read, never run.

@@ -17,7 +17,9 @@ any. PortXR shows the same on each game's page and installs the files with one c
 
 ## Ratings
 
-Each display mode a game was played in gets one:
+Each display mode a game was played in gets one, computed from the reports: the most common rating among that
+mode's five latest reports (only those made with the entry's files, when it has files and they exist). A tie goes to
+the lower rating, so a page never promises more than every player saw. Nobody sets a rating by hand.
 
 | Rating | Means |
 | --- | --- |
@@ -33,7 +35,7 @@ cutscenes, controls, scale, camera, performance, crashes, audio) and marked when
 
 ```
 games/<game-slug>/
-  meta.json      what the game is, its ratings, issues and reports, which files belong to it
+  meta.json      what the game is, its reports and issues, which files belong to it
   script.lua     optional: a PortXR script for this game
   settings.cfg   optional: PortXR settings that suit this game
   README.md      optional: longer notes

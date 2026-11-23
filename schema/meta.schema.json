@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://everyvr.net/schemas/portxr-catalogue-entry.json",
   "title": "PortXR catalogue entry",
-  "description": "games/<slug>/meta.json: how a game plays in VR with PortXR, in each display mode, who tried it, what goes wrong, and the files that fix it. What a game needs (nothing, settings or a script) is read from `files`.",
+  "description": "games/<slug>/meta.json: how a game plays in VR with PortXR, who tried it in which display mode, what goes wrong, and the files that fix it. Each mode's rating is computed from the reports (the most common among the five latest, a tie going to the lower one), and what a game needs (nothing, settings or a script) is read from `files`.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -13,7 +13,6 @@
     "exe",
     "author",
     "version",
-    "ratings",
     "issues",
     "reports",
     "hasOnlineMultiplayer",
@@ -25,18 +24,38 @@
   ],
   "$defs": {
     "mode": {
-      "enum": ["Full VR", "3D screen", "VR screen"],
+      "enum": [
+        "Full VR",
+        "3D screen",
+        "VR screen"
+      ],
       "description": "Full VR: the game's world around you. 3D screen: the game in 3D on a big screen. VR screen: the flat game on a big screen."
     },
     "rating": {
-      "enum": ["perfect", "good", "playable", "broken"],
+      "enum": [
+        "perfect",
+        "good",
+        "playable",
+        "broken"
+      ],
       "description": "perfect: nothing to fix. good: small issues you can ignore. playable: noticeable issues, still finishable. broken: not playable yet."
     },
-    "github": { "type": "string", "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$" },
-    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }
+    "github": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$"
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    }
   },
   "properties": {
-    "game": { "type": "string", "minLength": 1, "maxLength": 100, "description": "The game's name as its store page writes it." },
+    "game": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "The game's name as its store page writes it."
+    },
     "slug": {
       "type": "string",
       "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
@@ -48,22 +67,37 @@
       "minimum": 1,
       "description": "The number in the game's Steam store address. PortXR matches the game by it, and the site shows Steam's picture of the game. Required for Steam games."
     },
-    "engine": { "enum": ["Unity", "Unreal Engine", "Godot"] },
-    "engineVersion": { "type": "string", "pattern": "^[0-9][0-9A-Za-z.]*$", "description": "As PortXR shows it on the game's page: 2021.3, 5.4, 4.3." },
-    "scriptingBackend": { "enum": ["Mono", "IL2CPP"], "description": "Unity games only." },
+    "engine": {
+      "enum": [
+        "Unity",
+        "Unreal Engine",
+        "Godot"
+      ]
+    },
+    "engineVersion": {
+      "type": "string",
+      "pattern": "^[0-9][0-9A-Za-z.]*$",
+      "description": "As PortXR shows it on the game's page: 2021.3, 5.4, 4.3."
+    },
+    "scriptingBackend": {
+      "enum": [
+        "Mono",
+        "IL2CPP"
+      ],
+      "description": "Unity games only."
+    },
     "exe": {
       "type": "string",
       "pattern": "^[^\\\\/:*?\"<>|]+\\.exe$",
       "description": "The game's exe, which names its scripts folder. Unreal games: the <Game>-Win64-Shipping.exe. PortXR matches games without a Steam ID by it."
     },
-    "author": { "$ref": "#/$defs/github", "description": "GitHub name of whoever looks after the entry." },
-    "version": { "$ref": "#/$defs/semver", "description": "Version of this entry. Raise it with every change to its files: PortXR offers the new files as an update." },
-    "ratings": {
-      "type": "object",
-      "description": "How well the game plays in each display mode someone tried. Each mode here needs a report in that mode.",
-      "minProperties": 1,
-      "propertyNames": { "$ref": "#/$defs/mode" },
-      "additionalProperties": { "$ref": "#/$defs/rating" }
+    "author": {
+      "$ref": "#/$defs/github",
+      "description": "GitHub name of whoever looks after the entry."
+    },
+    "version": {
+      "$ref": "#/$defs/semver",
+      "description": "Version of this entry. Raise it with every change to its files: PortXR offers the new files as an update."
     },
     "issues": {
       "type": "array",
@@ -72,12 +106,38 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["tag", "note"],
+        "required": [
+          "tag",
+          "note"
+        ],
         "properties": {
-          "tag": { "enum": ["menus", "hud", "cutscenes", "controls", "scale", "camera", "performance", "crashes", "audio", "other"] },
-          "note": { "type": "string", "minLength": 3, "maxLength": 200 },
-          "mode": { "$ref": "#/$defs/mode", "description": "Only in this mode. Left out: in every mode tried." },
-          "fixed": { "type": "boolean", "description": "The entry's files fix it." }
+          "tag": {
+            "enum": [
+              "menus",
+              "hud",
+              "cutscenes",
+              "controls",
+              "scale",
+              "camera",
+              "performance",
+              "crashes",
+              "audio",
+              "other"
+            ]
+          },
+          "note": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 200
+          },
+          "mode": {
+            "$ref": "#/$defs/mode",
+            "description": "Only in this mode. Left out: in every mode reported."
+          },
+          "fixed": {
+            "type": "boolean",
+            "description": "The entry's files fix it."
+          }
         }
       }
     },
@@ -85,28 +145,77 @@
       "type": "array",
       "minItems": 1,
       "maxItems": 30,
-      "description": "Each time someone played it and said how it went. Newest first.",
+      "description": "Each time someone played it and said how it went, newest first. The ratings shown for the game are computed from these.",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["by", "date", "portxr", "headset", "os", "mode", "rating"],
+        "required": [
+          "by",
+          "date",
+          "portxr",
+          "headset",
+          "os",
+          "mode",
+          "rating"
+        ],
         "properties": {
-          "by": { "$ref": "#/$defs/github" },
-          "date": { "type": "string", "format": "date" },
-          "portxr": { "$ref": "#/$defs/semver" },
-          "headset": { "type": "string", "minLength": 2, "maxLength": 60, "description": "Headset and how it connects: Quest 3 (Virtual Desktop), Valve Index (SteamVR)." },
-          "os": { "enum": ["Windows", "Linux"], "description": "Linux: through Steam's Proton." },
-          "mode": { "$ref": "#/$defs/mode" },
-          "rating": { "$ref": "#/$defs/rating" },
-          "withFiles": { "type": "boolean", "description": "Played with this entry's files. Left out: as it is." },
-          "issue": { "type": "integer", "minimum": 1, "description": "The GitHub issue the report came from." },
-          "note": { "type": "string", "maxLength": 300 }
+          "by": {
+            "$ref": "#/$defs/github"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "portxr": {
+            "$ref": "#/$defs/semver"
+          },
+          "headset": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 60,
+            "description": "Headset and how it connects: Quest 3 (Virtual Desktop), Valve Index (SteamVR)."
+          },
+          "os": {
+            "enum": [
+              "Windows",
+              "Linux"
+            ],
+            "description": "Linux: through Steam's Proton."
+          },
+          "mode": {
+            "$ref": "#/$defs/mode"
+          },
+          "rating": {
+            "$ref": "#/$defs/rating"
+          },
+          "withFiles": {
+            "type": "boolean",
+            "description": "Played with this entry's files. Left out: as it is."
+          },
+          "issue": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "The GitHub issue the report came from."
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 300
+          }
         }
       }
     },
-    "hasOnlineMultiplayer": { "type": "boolean", "description": "The game has an online mode. The entry is still for single-player only." },
-    "hasAntiCheat": { "const": false, "description": "Games with anti-cheat are not accepted." },
-    "containsCode": { "type": "boolean", "description": "True when any file is a Lua script." },
+    "hasOnlineMultiplayer": {
+      "type": "boolean",
+      "description": "The game has an online mode. The entry is still for single-player only."
+    },
+    "hasAntiCheat": {
+      "const": false,
+      "description": "Games with anti-cheat are not accepted."
+    },
+    "containsCode": {
+      "type": "boolean",
+      "description": "True when any file is a Lua script."
+    },
     "files": {
       "type": "array",
       "minItems": 0,
@@ -115,23 +224,61 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["path", "kind"],
+        "required": [
+          "path",
+          "kind"
+        ],
         "properties": {
-          "path": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*\\.(lua|cfg)$" },
-          "kind": { "enum": ["script", "settings"] },
-          "about": { "type": "string", "maxLength": 200 }
+          "path": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*\\.(lua|cfg)$"
+          },
+          "kind": {
+            "enum": [
+              "script",
+              "settings"
+            ]
+          },
+          "about": {
+            "type": "string",
+            "maxLength": 200
+          }
         }
       }
     },
-    "notes": { "type": "string", "maxLength": 1200, "description": "The short story: what works, what does not, what the files fix. Plain text." },
-    "lastUpdated": { "type": "string", "format": "date" },
-    "sample": { "const": true, "description": "A made-up entry that shows the format. Removed before the catalogue opens." }
+    "notes": {
+      "type": "string",
+      "maxLength": 1200,
+      "description": "The short story: what works, what does not, what the files fix. Plain text."
+    },
+    "lastUpdated": {
+      "type": "string",
+      "format": "date"
+    },
+    "sample": {
+      "const": true,
+      "description": "A made-up entry that shows the format. Removed before the catalogue opens."
+    }
   },
   "allOf": [
     {
-      "if": { "properties": { "engine": { "const": "Unity" } } },
-      "then": { "required": ["scriptingBackend"] },
-      "else": { "properties": { "scriptingBackend": false } }
+      "if": {
+        "properties": {
+          "engine": {
+            "const": "Unity"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "scriptingBackend"
+        ]
+      },
+      "else": {
+        "properties": {
+          "scriptingBackend": false
+        }
+      }
     }
   ]
 }

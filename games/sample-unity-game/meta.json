@@ -7,9 +7,6 @@
   "exe": "Sample Unity Game.exe",
   "author": "EncidXVII",
   "version": "1.0.0",
-  "ratings": {
-    "Full VR": "good"
-  },
   "issues": [
     {
       "tag": "hud",

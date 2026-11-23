@@ -6,10 +6,6 @@
   "exe": "SampleGodotGame.exe",
   "author": "EncidXVII",
   "version": "1.0.0",
-  "ratings": {
-    "VR screen": "perfect",
-    "Full VR": "broken"
-  },
   "issues": [
     {
       "tag": "camera",
