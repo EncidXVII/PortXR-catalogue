@@ -2,7 +2,7 @@
 
 What each game needs to play well in VR with [PortXR](https://everyvr.net/portxr): one folder per game with a
 status, the headsets it was tested on, and the script or settings that fix it. The site shows every entry at
-[everyvr.net/portxr/catalogue](https://everyvr.net/portxr/catalogue), one page per game.
+[everyvr.net/portxr/catalogue](https://everyvr.net/portxr/catalogue), one page per game. Questions about an entry, or a game you want covered: [the EveryVR Discord](https://discord.gg/WkzGQwu2kz).
 
 > **Status: not open yet.** The three `sample-*` entries show the format and are removed when the first real entry
 > is merged.
